@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grife das Pratas | Joias masculinas em Prata 925 e Ouro 18K</title>
+  <meta name="description" content="Grife das Pratas: joias e acessórios masculinos em Prata 925 e Ouro 18K. Anéis, colares, correntes e pulseiras feitos à mão." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['Oswald', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            ink: '#0a0a0a',
+            coal: '#121212',
+            graphite: '#1b1b1b',
+            silver: '#c9c9c9',
+            gold: '#c8a45c',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0a; color: #f5f5f5; }
+
+    /* Header: transparente no topo, sólido ao rolar */
+    #header { transition: background-color .3s ease, backdrop-filter .3s ease, border-color .3s ease; border-bottom: 1px solid transparent; }
+    #header.scrolled { background: rgba(10,10,10,.92); backdrop-filter: blur(10px); border-bottom-color: rgba(255,255,255,.08); }
+
+    .nav-link { position: relative; }
+    .nav-link::after { content: ""; position: absolute; left: 0; bottom: -6px; height: 1px; width: 0; background: #fff; transition: width .25s ease; }
+    .nav-link:hover::after { width: 100%; }
+
+    .chip { border: 1px solid #fff; transition: background-color .2s ease, color .2s ease; }
+    .chip:hover { background: #fff; color: #000; }
+
+    .product-card .img-wrap img,
+    .product-card .img-wrap .ph { transition: transform .6s ease; }
+    .product-card:hover .img-wrap img,
+    .product-card:hover .img-wrap .ph { transform: scale(1.05); }
+    .product-card .quick-add { transform: translateY(100%); transition: transform .3s ease; }
+    .product-card:hover .quick-add { transform: translateY(0); }
+    @media (hover: none) { .product-card .quick-add { transform: translateY(0); } }
+
+    /* Placeholder elegante para fotos ainda não inseridas */
+    .ph {
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.10), transparent 55%),
+        linear-gradient(145deg, #1f1f1f, #0f0f0f);
+    }
+
+    .marquee-shadow { box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 -1px 0 rgba(255,255,255,.06) inset; }
+
+    /* Drawer do carrinho */
+    #cart-overlay, #size-overlay { transition: opacity .25s ease; }
+    #cart-drawer { transition: transform .35s cubic-bezier(.4,0,.2,1); }
+    #cart-drawer.open { transform: translateX(0); }
+    #size-modal { transition: transform .25s ease, opacity .25s ease; }
+
+    .size-btn { border: 1px solid rgba(255,255,255,.3); transition: all .15s ease; }
+    .size-btn:hover { border-color: #fff; }
+    .size-btn.selected { background: #fff; color: #000; border-color: #fff; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 3px; }
+  </style>
+</head>
+
+<body class="font-sans antialiased">
+
+  <!-- Barra de aviso -->
+  <div class="bg-white text-black text-[11px] sm:text-xs font-medium tracking-wide text-center py-2 px-4 relative z-[60]">
+    Frete grátis acima de R$500 &nbsp;•&nbsp; Primeira compra? <a href="#produtos" class="underline underline-offset-2">Clique aqui para 10% off</a>
+  </div>
+
+  <!-- Header / Navbar -->
+  <header id="header" class="fixed left-0 right-0 top-[32px] z-50">
+    <div class="max-w-[1500px] mx-auto px-5 lg:px-10 h-[72px] flex items-center justify-between">
+
+      <!-- Esquerda: logo + botão mobile -->
+      <div class="flex items-center gap-4">
+        <button id="menu-btn" class="lg:hidden -ml-1 p-1" aria-label="Abrir menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <a href="#" class="font-display uppercase tracking-[0.22em] text-lg sm:text-xl font-medium whitespace-nowrap">Grife das Pratas</a>
+      </div>
+
+      <!-- Centro: navegação -->
+      <nav class="hidden lg:flex items-center gap-9 text-[13px] font-medium uppercase tracking-[0.14em]" aria-label="Principal">
+        <a href="#produtos" class="nav-link">Best Sellers</a>
+        <a href="#categorias" class="nav-link">Joias</a>
+        <a href="#categorias" class="nav-link">Acessórios</a>
+        <a href="#personalize" class="nav-link">Personalize</a>
+        <a href="#rastreio" class="nav-link">Rastreio</a>
+      </nav>
+
+      <!-- Direita: ícones -->
+      <div class="flex items-center gap-4 sm:gap-5">
+        <button aria-label="Buscar" class="hover:opacity-70 transition">
+          <svg class="w-[22px] h-[22px]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button aria-label="Minha conta" class="hover:opacity-70 transition hidden sm:block">
+          <svg class="w-[22px] h-[22px]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+        </button>
+        <button id="cart-btn" aria-label="Carrinho" class="relative hover:opacity-70 transition">
+          <svg class="w-[22px] h-[22px]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path stroke-linecap="round" d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-black text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu mobile -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-ink/95 backdrop-blur border-t border-white/10">
+      <nav class="px-5 py-5 flex flex-col gap-4 text-sm font-medium uppercase tracking-[0.14em]">
+        <a href="#produtos">Best Sellers</a>
+        <a href="#categorias">Joias</a>
+        <a href="#categorias">Acessórios</a>
+        <a href="#personalize">Personalize</a>
+        <a href="#rastreio">Rastreio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero com vídeo -->
+    <section class="relative h-screen w-full overflow-hidden bg-black">
+      <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+        <source src="hero-video.mp4" type="video/mp4">
+      </video>
+
+      <!-- Overlay em gradiente -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/45"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent"></div>
+
+      <!-- Conteúdo: canto inferior esquerdo -->
+      <div class="absolute inset-x-0 bottom-0 z-10">
+        <div class="max-w-[1500px] mx-auto px-5 lg:px-10 pb-12 sm:pb-16">
+          <h1 class="font-display uppercase font-medium leading-[0.95] tracking-tight text-5xl sm:text-7xl lg:text-8xl max-w-4xl">
+            Silver, Gold<br class="hidden sm:block" /> &amp; Good Taste
+          </h1>
+          <p class="mt-5 text-base sm:text-lg text-white/85 max-w-xl">
+            Joias masculinas feitas à mão. Frete grátis acima de R$500.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="#produtos" class="chip rounded-full px-6 py-2.5 text-[13px] font-semibold uppercase tracking-[0.16em]">[ Colares ]</a>
+            <a href="#produtos" class="chip rounded-full px-6 py-2.5 text-[13px] font-semibold uppercase tracking-[0.16em]">[ Anéis ]</a>
+            <a href="#produtos" class="chip rounded-full px-6 py-2.5 text-[13px] font-semibold uppercase tracking-[0.16em]">[ Pulseiras ]</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Barra de benefícios -->
+    <section class="bg-coal marquee-shadow">
+      <div class="max-w-[1500px] mx-auto px-5 lg:px-10 py-5 grid grid-cols-2 lg:grid-cols-4 gap-y-4 gap-x-6 text-center">
+        <div class="flex items-center justify-center gap-2.5 text-[12px] sm:text-sm font-medium uppercase tracking-wider">
+          <span class="text-lg">⭐</span> 1.800+ Avaliações
+        </div>
+        <div class="flex items-center justify-center gap-2.5 text-[12px] sm:text-sm font-medium uppercase tracking-wider">
+          <span class="text-lg">🔄</span> 7 Dias para Trocas e Devoluções
+        </div>
+        <div class="flex items-center justify-center gap-2.5 text-[12px] sm:text-sm font-medium uppercase tracking-wider">
+          <span class="text-lg">💳</span> Até 10x sem juros
+        </div>
+        <div class="flex items-center justify-center gap-2.5 text-[12px] sm:text-sm font-medium uppercase tracking-wider">
+          <span class="text-lg">🛡️</span> 1 Ano de Garantia
+        </div>
+      </div>
+    </section>
+
+    <!-- Vitrine -->
+    <section id="produtos" class="max-w-[1500px] mx-auto px-5 lg:px-10 py-16 sm:py-24">
+      <div class="flex items-end justify-between mb-10">
+        <h2 class="font-display uppercase text-3xl sm:text-4xl tracking-wide">Destaques</h2>
+        <a href="#" class="text-xs sm:text-sm uppercase tracking-[0.16em] underline underline-offset-4 hover:text-silver">Ver tudo</a>
+      </div>
+
+      <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 sm:gap-x-6"></div>
+    </section>
+
+    <!-- Lançamento em destaque -->
+    <section class="relative">
+      <div class="max-w-[1500px] mx-auto px-5 lg:px-10">
+        <div class="relative overflow-hidden rounded-sm h-[420px] sm:h-[520px] flex items-end">
+          <img src="https://images.pexels.com/photos/9760803/pexels-photo-9760803.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Colar Divine" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <div class="relative z-10 p-7 sm:p-12">
+            <span class="inline-block bg-white text-black text-[11px] font-bold tracking-widest px-2.5 py-1 mb-4">NEW!</span>
+            <h3 class="font-display uppercase text-4xl sm:text-6xl">Colar Divine</h3>
+            <p class="mt-2 text-white/80">Inspirado na Árvore da Vida.</p>
+            <a href="#" class="chip inline-block rounded-full px-6 py-2.5 mt-6 text-[13px] font-semibold uppercase tracking-[0.16em]">Ver mais</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categorias -->
+    <section id="categorias" class="max-w-[1500px] mx-auto px-5 lg:px-10 py-16 sm:py-24">
+      <h2 class="font-display uppercase text-3xl sm:text-4xl tracking-wide mb-10">Explore por categoria</h2>
+      <div id="category-grid" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
+    </section>
+
+    <!-- Personalize -->
+    <section id="personalize" class="bg-coal">
+      <div class="max-w-[1500px] mx-auto px-5 lg:px-10 py-16 sm:py-24 grid md:grid-cols-2 gap-10 items-center">
+        <div class="aspect-[4/3] rounded-sm overflow-hidden">
+          <img src="https://images.pexels.com/photos/15237855/pexels-photo-15237855.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Processo artesanal Grife das Pratas" loading="lazy" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-silver mb-4">Sobre nós</p>
+          <h2 class="font-display uppercase text-4xl sm:text-5xl leading-tight">Feito à mão no Brasil</h2>
+          <p class="mt-5 text-white/70 max-w-lg">
+            Cada peça da Grife das Pratas passa por um processo artesanal de produção e acabamento,
+            em Prata 925 e Ouro 18K, com design clássico e visual refinado.
+          </p>
+          <a href="#" class="chip inline-block rounded-full px-6 py-2.5 mt-7 text-[13px] font-semibold uppercase tracking-[0.16em]">Leia mais</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer id="rastreio" class="bg-ink border-t border-white/10">
+    <div class="max-w-[1500px] mx-auto px-5 lg:px-10 pt-16 pb-8">
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-10">
+
+        <div class="col-span-2 lg:col-span-2">
+          <a href="#" class="font-display uppercase tracking-[0.22em] text-xl">Grife das Pratas</a>
+          <p class="mt-4 text-sm text-white/60 max-w-sm">Joias e acessórios masculinos em Prata 925 e Ouro 18K. Silver, Gold &amp; Good Taste.</p>
+
+          <div class="mt-6 flex items-center gap-4">
+            <a href="#" aria-label="Instagram" class="w-10 h-10 border border-white/30 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition">
+              <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook" class="w-10 h-10 border border-white/30 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition">
+              <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M14 8V6.5c0-.8.2-1.3 1.4-1.3H17V2.2C16.7 2.2 15.8 2 14.7 2 12.3 2 10.6 3.5 10.6 6.2V8H8v3.2h2.6V22H14v-10.8h2.6L17 8h-3Z"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube" class="w-10 h-10 border border-white/30 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition">
+              <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8ZM10 15V9l5.2 3L10 15Z"/></svg>
+            </a>
+            <a href="#" aria-label="TikTok" class="w-10 h-10 border border-white/30 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition">
+              <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M16.6 2h-3.2v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.1 6.1 0 1 0 5.2 6V8.6a7.4 7.4 0 0 0 4.3 1.4V6.8a4.3 4.3 0 0 1-4.3-4.8Z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase tracking-[0.2em] mb-5 text-white">A Marca</h4>
+          <ul class="space-y-3 text-sm text-white/60">
+            <li><a href="#" class="hover:text-white">Manifesto</a></li>
+            <li><a href="#" class="hover:text-white">Feito à mão</a></li>
+            <li><a href="#" class="hover:text-white">Onde encontrar</a></li>
+            <li><a href="#" class="hover:text-white">Reviews</a></li>
+            <li><a href="#" class="hover:text-white">Blog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase tracking-[0.2em] mb-5 text-white">Suporte</h4>
+          <ul class="space-y-3 text-sm text-white/60">
+            <li><a href="#" class="hover:text-white">Entre em contato</a></li>
+            <li><a href="#" class="hover:text-white">Acompanhe seu pedido</a></li>
+            <li><a href="#" class="hover:text-white">Tabela de medidas</a></li>
+            <li><a href="#" class="hover:text-white">Garantia</a></li>
+            <li><a href="#" class="hover:text-white">Cuidados e uso diário</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase tracking-[0.2em] mb-5 text-white">Políticas</h4>
+          <ul class="space-y-3 text-sm text-white/60">
+            <li><a href="#" class="hover:text-white">Entrega</a></li>
+            <li><a href="#" class="hover:text-white">Privacidade</a></li>
+            <li><a href="#" class="hover:text-white">Personalização</a></li>
+            <li><a href="#" class="hover:text-white">Trocas, devoluções e reembolsos</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Pagamento e segurança -->
+      <div class="mt-14 pt-8 border-t border-white/10 grid md:grid-cols-2 gap-8">
+        <div>
+          <h4 class="text-xs uppercase tracking-[0.2em] mb-4">Formas de pagamento</h4>
+          <div class="flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-wider">
+            <span class="border border-white/25 rounded px-3 py-1.5">Pix</span>
+            <span class="border border-white/25 rounded px-3 py-1.5">Visa</span>
+            <span class="border border-white/25 rounded px-3 py-1.5">Mastercard</span>
+            <span class="border border-white/25 rounded px-3 py-1.5">Elo</span>
+            <span class="border border-white/25 rounded px-3 py-1.5">Amex</span>
+            <span class="border border-white/25 rounded px-3 py-1.5">Hipercard</span>
+            <span class="border border-white/25 rounded px-3 py-1.5">Boleto</span>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-[0.2em] mb-4">Compra segura</h4>
+          <div class="flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-wider">
+            <span class="border border-white/25 rounded px-3 py-1.5">🔒 Certificado SSL</span>
+            <span class="border border-white/25 rounded px-3 py-1.5">🛡️ Site Seguro</span>
+            <span class="border border-white/25 rounded px-3 py-1.5">✅ Dados Protegidos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 text-xs text-white/40 flex flex-col sm:flex-row gap-2 justify-between">
+        <p>© <span id="year"></span> Grife das Pratas. Todos os direitos reservados.</p>
+        <p>Razão social e CNPJ: preencher</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Carrinho lateral (drawer) ===== -->
+  <div id="cart-overlay" class="hidden fixed inset-0 bg-black/60 z-[70]"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-ink border-l border-white/10 z-[80] translate-x-full flex flex-col">
+    <div class="flex items-center justify-between px-5 sm:px-6 h-[72px] border-b border-white/10">
+      <h2 class="font-display uppercase tracking-[0.18em] text-lg">Seu carrinho</h2>
+      <button id="cart-close" aria-label="Fechar carrinho" class="p-1 hover:opacity-70">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+
+    <div id="cart-items" class="flex-1 overflow-y-auto px-5 sm:px-6 py-5 space-y-5"></div>
+
+    <div id="cart-footer" class="border-t border-white/10 px-5 sm:px-6 py-5 space-y-4">
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-white/60">Subtotal</span>
+        <span id="cart-subtotal" class="font-semibold text-base">R$ 0,00</span>
+      </div>
+      <button id="checkout-btn" class="w-full bg-white text-black font-semibold uppercase tracking-[0.14em] text-[13px] py-3.5 rounded-full hover:bg-silver transition disabled:opacity-40 disabled:cursor-not-allowed">
+        Finalizar compra
+      </button>
+      <p class="text-[11px] text-white/40 text-center">Pagamento processado com segurança via Mercado Pago.</p>
+    </div>
+  </aside>
+
+  <!-- ===== Modal: seleção de tamanho ===== -->
+  <div id="size-overlay" class="hidden fixed inset-0 bg-black/70 z-[90] flex items-center justify-center px-5">
+    <div id="size-modal" class="bg-graphite border border-white/10 rounded-sm w-full max-w-sm p-6 sm:p-7">
+      <div class="flex items-start justify-between mb-1">
+        <h3 id="size-modal-title" class="font-display uppercase text-xl tracking-wide pr-4">Selecione o tamanho</h3>
+        <button id="size-close" aria-label="Fechar" class="p-1 -mt-1 -mr-1 hover:opacity-70">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <p id="size-modal-subtitle" class="text-sm text-white/50 mb-5">Escolha uma opção para adicionar ao carrinho.</p>
+      <div id="size-options" class="flex flex-wrap gap-2 mb-6"></div>
+      <button id="size-confirm" class="w-full bg-white text-black font-semibold uppercase tracking-[0.14em] text-[13px] py-3 rounded-full hover:bg-silver transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Adicionar ao carrinho
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== Modal: dados do cliente (checkout) ===== -->
+  <div id="checkout-overlay" class="hidden fixed inset-0 bg-black/70 z-[90] flex items-center justify-center px-5">
+    <div class="bg-graphite border border-white/10 rounded-sm w-full max-w-sm p-6 sm:p-7">
+      <div class="flex items-start justify-between mb-5">
+        <h3 class="font-display uppercase text-xl tracking-wide">Seus dados</h3>
+        <button id="checkout-close" aria-label="Fechar" class="p-1 -mt-1 -mr-1 hover:opacity-70">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <form id="checkout-form" class="space-y-4">
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-white/50 mb-1.5" for="customer-name">Nome completo</label>
+          <input id="customer-name" name="name" type="text" required class="w-full bg-black/40 border border-white/15 rounded px-3 py-2.5 text-sm focus:outline-none focus:border-white/50" />
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-white/50 mb-1.5" for="customer-email">E-mail</label>
+          <input id="customer-email" name="email" type="email" required class="w-full bg-black/40 border border-white/15 rounded px-3 py-2.5 text-sm focus:outline-none focus:border-white/50" />
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-white/50 mb-1.5" for="customer-phone">Telefone (opcional)</label>
+          <input id="customer-phone" name="phone" type="tel" class="w-full bg-black/40 border border-white/15 rounded px-3 py-2.5 text-sm focus:outline-none focus:border-white/50" />
+        </div>
+        <p id="checkout-error" class="hidden text-xs text-red-400"></p>
+        <button id="checkout-submit" type="submit" class="w-full bg-white text-black font-semibold uppercase tracking-[0.14em] text-[13px] py-3.5 rounded-full hover:bg-silver transition disabled:opacity-40 disabled:cursor-not-allowed">
+          Ir para o pagamento
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    /* ===== Catálogo (edite aqui) =====
+       id: precisa ser o UUID real da linha correspondente na tabela `products`
+       do Supabase — é esse id que o /api/checkout usa para validar o preço.
+       sizes: lista de tamanhos disponíveis (opcional). Quando presente, o
+       cliente escolhe o tamanho num modal antes de adicionar ao carrinho.
+       image: URL da foto do produto. */
+    const px = (id, w = 1200) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
+
+    const products = [
+      {
+        id: "fac278fd-00b0-4dc1-9969-a81437af4c57", // ID real da tabela products (Supabase)
+        name: "Corrente Elo Grumet 7mm — Prata 925",
+        price: 250,
+        badge: "BEST SELLER",
+        image: px(16109298),
+      },
+      {
+        id: "00000000-0000-4000-8000-000000000002", // TODO: substituir pelo ID real no Supabase
+        name: "Cordão Figaro — Prata 925",
+        price: 260,
+        badge: "BEST SELLER",
+        image: px(2752462),
+      },
+      {
+        id: "00000000-0000-4000-8000-000000000003", // TODO: substituir pelo ID real no Supabase
+        name: "Colar Pingente de Cruz — Prata 925",
+        price: 220,
+        badge: "BEST SELLER",
+        image: px(9432652),
+      },
+      {
+        id: "00000000-0000-4000-8000-000000000004", // TODO: substituir pelo ID real no Supabase
+        name: "Anel de Sinete — Prata 925",
+        price: 380,
+        badge: "PERSONALIZÁVEL",
+        image: px(2899839),
+        sizes: ["15", "17", "19", "21", "23"],
+      },
+      {
+        id: "00000000-0000-4000-8000-000000000005", // TODO: substituir pelo ID real no Supabase
+        name: "Pulseira Grumet — Prata 925",
+        price: 330,
+        badge: "BEST SELLER",
+        image: px(12026051),
+      },
+      {
+        id: "00000000-0000-4000-8000-000000000006", // TODO: substituir pelo ID real no Supabase
+        name: "Anel Clássico Liso — Prata 925 banho em Ouro",
+        price: 490,
+        badge: "BEST SELLER",
+        image: px(94843),
+        sizes: ["15", "17", "19", "21", "23"],
+      },
+      {
+        id: "00000000-0000-4000-8000-000000000007", // TODO: substituir pelo ID real no Supabase
+        name: "Cordão Cartier — Prata 925",
+        price: 300,
+        badge: "BEST SELLER",
+        image: px(16124747),
+      },
+      {
+        id: "00000000-0000-4000-8000-000000000008", // TODO: substituir pelo ID real no Supabase
+        name: "Medalha Escapulário — Prata 925 banho em Ouro",
+        price: 420,
+        badge: "BEST SELLER",
+        image: px(7267077),
+      },
+    ];
+
+    const categories = [
+      { name: "Personalizáveis", image: px(19525059, 800) },
+      { name: "Lançamentos",     image: px(9432652, 800) },
+      { name: "Anéis",           image: px(168927, 800) },
+      { name: "Colares",         image: px(13112006, 800) },
+      { name: "Pulseiras",       image: px(2879829, 800) },
+    ];
+
+    const INSTALLMENTS = 10; // "Até 10x sem juros"
+    const brl = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    const productsById = new Map(products.map((p) => [p.id, p]));
+
+    /* ===== Render vitrine ===== */
+    const grid = document.getElementById("product-grid");
+    grid.innerHTML = products.map((p) => `
+      <article class="product-card group">
+        <a href="#" class="block">
+          <div class="img-wrap relative overflow-hidden bg-graphite aspect-square rounded-sm">
+            ${p.image
+              ? `<img src="${p.image}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover" />`
+              : `<div class="ph w-full h-full"></div>`}
+            ${p.badge ? `<span class="absolute top-3 left-3 bg-white text-black text-[10px] font-bold tracking-widest px-2 py-1">${p.badge}</span>` : ""}
+            <button data-add="${p.id}" class="quick-add absolute inset-x-0 bottom-0 bg-white text-black text-[12px] font-semibold uppercase tracking-[0.16em] py-3 hover:bg-silver">
+              Adicionar
+            </button>
+          </div>
+        </a>
+        <h3 class="mt-4 text-[13px] sm:text-sm font-medium leading-snug">${p.name}</h3>
+        <p class="mt-1.5 text-sm sm:text-base font-semibold">${brl(p.price)}</p>
+        <p class="text-[11px] sm:text-xs text-white/55">ou ${INSTALLMENTS}x de ${brl(p.price / INSTALLMENTS)} sem juros</p>
+      </article>
+    `).join("");
+
+    /* ===== Render categorias ===== */
+    document.getElementById("category-grid").innerHTML = categories.map((c) => `
+      <a href="#" class="group relative block aspect-[3/4] overflow-hidden rounded-sm bg-graphite">
+        ${c.image
+          ? `<img src="${c.image}" alt="${c.name}" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />`
+          : `<div class="ph absolute inset-0 group-hover:scale-105 transition duration-700"></div>`}
+        <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+        <h3 class="absolute bottom-4 left-4 font-display uppercase text-xl tracking-wide">${c.name}</h3>
+      </a>
+    `).join("");
+
+    /* =====================================================================
+       Carrinho
+       Cada item: { id, name, price, image, size, quantity }
+       Itens do mesmo produto + mesmo tamanho são agrupados (quantity++).
+    ===================================================================== */
+    let cart = [];
+    let pendingProduct = null; // produto aguardando escolha de tamanho
+
+    const cartOverlay   = document.getElementById("cart-overlay");
+    const cartDrawer     = document.getElementById("cart-drawer");
+    const cartItemsEl    = document.getElementById("cart-items");
+    const cartSubtotalEl = document.getElementById("cart-subtotal");
+    const cartCountEl    = document.getElementById("cart-count");
+    const checkoutBtn    = document.getElementById("checkout-btn");
+
+    function cartKey(id, size) {
+      return `${id}::${size ?? ""}`;
+    }
+
+    function addToCart(product, size) {
+      const key = cartKey(product.id, size);
+      const existing = cart.find((i) => cartKey(i.id, i.size) === key);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          size: size ?? null,
+          quantity: 1,
+        });
+      }
+      renderCart();
+      openCart();
+    }
+
+    function changeQuantity(id, size, delta) {
+      const key = cartKey(id, size);
+      const item = cart.find((i) => cartKey(i.id, i.size) === key);
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter((i) => cartKey(i.id, i.size) !== key);
+      }
+      renderCart();
+    }
+
+    function cartTotal() {
+      return cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+    }
+
+    function cartCount() {
+      return cart.reduce((sum, i) => sum + i.quantity, 0);
+    }
+
+    function renderCart() {
+      cartCountEl.textContent = cartCount();
+
+      if (cart.length === 0) {
+        cartItemsEl.innerHTML = `<p class="text-sm text-white/50 text-center mt-10">Seu carrinho está vazio.</p>`;
+        checkoutBtn.disabled = true;
+      } else {
+        cartItemsEl.innerHTML = cart.map((item) => `
+          <div class="flex gap-3" data-key="${cartKey(item.id, item.size)}">
+            <div class="w-20 h-20 rounded-sm overflow-hidden bg-graphite shrink-0">
+              ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover" />` : ""}
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium leading-snug">${item.name}</p>
+              ${item.size ? `<p class="text-xs text-white/50 mt-0.5">Tamanho: ${item.size}</p>` : ""}
+              <div class="flex items-center justify-between mt-2">
+                <div class="flex items-center gap-2">
+                  <button data-qty="-1" class="w-6 h-6 border border-white/25 rounded-full text-sm hover:border-white/60">−</button>
+                  <span class="text-sm w-4 text-center">${item.quantity}</span>
+                  <button data-qty="1" class="w-6 h-6 border border-white/25 rounded-full text-sm hover:border-white/60">+</button>
+                </div>
+                <span class="text-sm font-semibold">${brl(item.price * item.quantity)}</span>
+              </div>
+            </div>
+          </div>
+        `).join("");
+        checkoutBtn.disabled = false;
+      }
+
+      cartSubtotalEl.textContent = brl(cartTotal());
+    }
+
+    cartItemsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-qty]");
+      if (!btn) return;
+      const row = btn.closest("[data-key]");
+      const [id, size] = row.dataset.key.split("::");
+      changeQuantity(id, size || null, Number(btn.dataset.qty));
+    });
+
+    function openCart() {
+      cartOverlay.classList.remove("hidden");
+      cartDrawer.classList.add("open");
+      cartDrawer.classList.remove("translate-x-full");
+    }
+    function closeCart() {
+      cartOverlay.classList.add("hidden");
+      cartDrawer.classList.remove("open");
+      cartDrawer.classList.add("translate-x-full");
+    }
+    document.getElementById("cart-btn").addEventListener("click", openCart);
+    document.getElementById("cart-close").addEventListener("click", closeCart);
+    cartOverlay.addEventListener("click", closeCart);
+
+    /* ===== Modal de tamanho ===== */
+    const sizeOverlay   = document.getElementById("size-overlay");
+    const sizeOptionsEl = document.getElementById("size-options");
+    const sizeConfirm   = document.getElementById("size-confirm");
+    const sizeTitle      = document.getElementById("size-modal-title");
+    let selectedSize = null;
+
+    function openSizeModal(product) {
+      pendingProduct = product;
+      selectedSize = null;
+      sizeTitle.textContent = product.name;
+      sizeConfirm.disabled = true;
+      sizeOptionsEl.innerHTML = product.sizes.map((s) => `
+        <button type="button" data-size="${s}" class="size-btn px-4 py-2 rounded-full text-sm">${s}</button>
+      `).join("");
+      sizeOverlay.classList.remove("hidden");
+    }
+    function closeSizeModal() {
+      sizeOverlay.classList.add("hidden");
+      pendingProduct = null;
+    }
+
+    sizeOptionsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-size]");
+      if (!btn) return;
+      selectedSize = btn.dataset.size;
+      sizeOptionsEl.querySelectorAll(".size-btn").forEach((b) => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      sizeConfirm.disabled = false;
+    });
+
+    sizeConfirm.addEventListener("click", () => {
+      if (!pendingProduct || !selectedSize) return;
+      addToCart(pendingProduct, selectedSize);
+      closeSizeModal();
+    });
+
+    document.getElementById("size-close").addEventListener("click", closeSizeModal);
+    sizeOverlay.addEventListener("click", (e) => {
+      if (e.target === sizeOverlay) closeSizeModal();
+    });
+
+    /* ===== Clique em "Adicionar" na vitrine ===== */
+    grid.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-add]");
+      if (!btn) return;
+      e.preventDefault();
+      const product = productsById.get(btn.dataset.add);
+      if (!product) return;
+
+      if (Array.isArray(product.sizes) && product.sizes.length > 0) {
+        openSizeModal(product);
+      } else {
+        addToCart(product, null);
+      }
+    });
+
+    /* =====================================================================
+       Checkout — coleta os dados do cliente e chama /api/checkout,
+       que valida os preços no Supabase e devolve o link de pagamento
+       (init_point) do Mercado Pago.
+    ===================================================================== */
+    const checkoutOverlay = document.getElementById("checkout-overlay");
+    const checkoutForm    = document.getElementById("checkout-form");
+    const checkoutError   = document.getElementById("checkout-error");
+    const checkoutSubmit  = document.getElementById("checkout-submit");
+
+    checkoutBtn.addEventListener("click", () => {
+      if (cart.length === 0) return;
+      checkoutError.classList.add("hidden");
+      checkoutOverlay.classList.remove("hidden");
+    });
+    document.getElementById("checkout-close").addEventListener("click", () => {
+      checkoutOverlay.classList.add("hidden");
+    });
+    checkoutOverlay.addEventListener("click", (e) => {
+      if (e.target === checkoutOverlay) checkoutOverlay.classList.add("hidden");
+    });
+
+    checkoutForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      checkoutError.classList.add("hidden");
+      checkoutSubmit.disabled = true;
+      checkoutSubmit.textContent = "Processando...";
+
+      const customer = {
+        name: document.getElementById("customer-name").value.trim(),
+        email: document.getElementById("customer-email").value.trim(),
+        phone: document.getElementById("customer-phone").value.trim() || undefined,
+      };
+
+      const items = cart.map((i) => ({
+        id: i.id,
+        size: i.size,
+        quantity: i.quantity,
+      }));
+
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items, customer }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data?.error || "Não foi possível iniciar o pagamento.");
+        }
+
+        // Redireciona para o checkout do Mercado Pago
+        window.location.href = data.init_point;
+      } catch (err) {
+        checkoutError.textContent = err.message || "Erro ao processar o pedido. Tente novamente.";
+        checkoutError.classList.remove("hidden");
+        checkoutSubmit.disabled = false;
+        checkoutSubmit.textContent = "Ir para o pagamento";
+      }
+    });
+
+    /* ===== Header e menu mobile ===== */
+    const header = document.getElementById("header");
+    const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    document.getElementById("menu-btn").addEventListener("click", () => {
+      const m = document.getElementById("mobile-menu");
+      m.classList.toggle("hidden");
+      header.classList.add("scrolled");
+    });
+    document.querySelectorAll("#mobile-menu a").forEach((a) =>
+      a.addEventListener("click", () => document.getElementById("mobile-menu").classList.add("hidden"))
+    );
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    renderCart();
+  </script>
+</body>
+</html>

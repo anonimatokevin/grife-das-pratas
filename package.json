@@ -1,0 +1,17 @@
+{
+  "name": "grife-das-pratas",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page + checkout (Mercado Pago) e pedidos (Supabase) da Grife das Pratas.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "mercadopago": "^2.0.15"
+  }
+}
